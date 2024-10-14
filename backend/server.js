@@ -14,14 +14,14 @@ app.use(
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-// const authRoutes = require("./auth");
+const authRoutes = require("./src/auth/service");
 
 app.use(
   "/assets",
   express.static(path.join(__dirname, "../frontend/dist/assets"))
 );
 
-// app.use("/api", authRoutes);
+app.use("/api/auth", authRoutes);
 
 app.get("/old/", (req, res) => {
   res.sendFile(path.join(__dirname, "../frontend/dist", "index.html"));

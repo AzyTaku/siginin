@@ -45,7 +45,53 @@ async function createUser(email, password) {
   return token;
 }
 
+// READ - Get user by Id
+async function getUserById(userId) {
+  const user = await User.findById(userId);
+  if (!user) {
+    console.log("User with ID:", userId, "not found");
+    throw new Error("User not found");
+  }
+
+  return user;
+}
+
+//UPDATE
+async function updateUser(userId, updateData) {
+  try {
+    const updatedUser = await User.findByIdAndUpdate(userId, updateData, {
+      new: true,
+    });
+    return updatedUser;
+  } catch (error) {
+    console.error(`Error Updating Notes by ${userId}:`, error);
+    return null;
+  }
+}
+
+//Delete User
+async function deleteUser(userId) {
+  try {
+    const result = await User.deleteOne({ _id: userId });
+    console.log("Dal DeleteUser result : ", result);
+
+    if (result.deletedCount > 0) {
+      console.log("User deleted successfully!");
+      return true;
+    } else {
+      console.log("Failed to Delete User!");
+      return false;
+    }
+  } catch (error) {
+    console.log("Error deleting user :", error);
+    throw error;
+  }
+}
+
 module.exports = {
   authenticateUser,
   createUser,
+  getUserById,
+  updateUser,
+  deleteUser,
 };

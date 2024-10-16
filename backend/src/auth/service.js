@@ -1,7 +1,13 @@
 //Login Routes
 const express = require("express");
 const router = express.Router();
-const { authenticateUser, createUser } = require("./dal");
+const {
+  authenticateUser,
+  createUser,
+  getUserById,
+  updateUser,
+  deleteUser,
+} = require("./dal");
 
 router.post(`/login`, async (req, res) => {
   const email = req.body.email;
@@ -27,4 +33,38 @@ router.post(`/signup`, async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 });
+
+router.patch("/:userId/user", async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const user = await getUserById(userId);
+    if (!user) {
+      res.status(404).json({ error: "user not found" }); //error if no user Id
+      return;
+    }
+    const updatedUser = await updateUser(userId, req.body);
+    res.status(202).json(updatedUser);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Failed to update User" });
+  }
+});
+
+router.delete("/:userId/delete", async (req, res) => {
+  const userId = req.params.id;
+  console.log("Log to Delete - UserId : ", userId);
+  try {
+    const success = await deleteUser(userId);
+    if (success) {
+      res.send({ message: "User deleted successfully!" });
+    } else {
+      res.status(404).send({ error: "User not found!" });
+    }
+  } catch (error) {
+    res
+      .status(500)
+      .send({ error: "An error occurred while deleting the user." });
+  }
+});
+
 module.exports = router;

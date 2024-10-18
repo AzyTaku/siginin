@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import '../assets/login.css';
+import '../output.css'
 import { services } from "../services/services.jsx";
 
 export function Signin() {
@@ -33,10 +34,10 @@ export function Signin() {
 
     return (
         <>
-            <div className="bg-white p-6 rounded shadow-md">
-                <form>
+            <div className="flex items-center justify-center min-h-screen bg-gray-100">
+                <form className="bg-white p-6 shadow-md absolute">
                     <div>
-                        <h4 className="text-white">Sign In</h4>
+                        <h4 className="text-black mb-[150px] sm:mb-[100px] text-center">Sign In</h4>
                     </div>
                     <div className="text-black mr-10">
                         <label htmlFor="email" className="text-black text-[16px]">Email:</label>

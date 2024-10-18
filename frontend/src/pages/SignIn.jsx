@@ -1,48 +1,78 @@
-import React from "react"
-import { services } from "../services/services.jsx"
+import React, { useState } from "react";
+import '../assets/login.css';
+import { services } from "../services/services.jsx";
 
 export function Signin() {
-    const SignInClick = () => {
-        let email = document.getElementById("email").value
-        let pass = document.getElementById("pass").value
-        services.Signin(email, pass).then(function (response) {
-            if (response === true) {
-                console.log("Sign in True : ", response, " For : ", email, pass)
-            } else {
-                console.error("Sign in False :", response, " For : ", email, pass)
-            }
-        })
-    }
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [isSignedIn, setIsSignedIn] = useState(false);
 
-    const SignUpClick = () => {
-        let email = document.getElementById("email").value
-        let pass = document.getElementById("pass").value
-        services.Signup(email, pass).then(function (response) {
+    const SignInClick = (e) => {
+        e.preventDefault(); // Prevent form submission
+        services.Signin(email, password).then(function (response) {
             if (response === true) {
-                console.log("Signup is True : ", response, " For :", email, pass)
+                console.log("Sign in True : ", response, " For : ", email, password);
+                setIsSignedIn(true)
+            } else {
+                console.error("Sign in False :", response, " For : ", email, password);
+                setIsSignedIn(false)
             }
-            else {
-                console.error("Signup is False : ", response, " For :", email, pass)
+        });
+    };
+
+    const SignUpClick = (e) => {
+        e.preventDefault(); // Prevent form submission
+        services.Signup(email, password).then(function (response) {
+            if (response === true) {
+                console.log("Signup is True : ", response, " For :", email, password);
+            } else {
+                console.error("Signup is False : ", response, " For :", email, password);
             }
-        })
-    }
+        });
+    };
 
     return (
         <>
-            <form action="submit">
-                <div><h4>Sign In</h4></div>
-                <div>
-                    <label type="text" className="email" >Email :      </label>
-                    <input type="text" name="email" id="email" placeholder="Input Email" />
-                </div>
-                <div>
-                    <label type="text" className="email" >Password :</label>
-                    <input type="password" name="pass" id="pass" placeholder="Input Password" />
-                </div>
-                <button onClick={SignInClick} type="button">Sign in</button>
-                <button onClick={SignUpClick} type="button">Sign up</button>
-            </form>
+            <div className="bg-white p-6 rounded shadow-md">
+                <form>
+                    <div>
+                        <h4 className="text-white">Sign In</h4>
+                    </div>
+                    <div className="text-black mr-10">
+                        <label htmlFor="email" className="text-black text-[16px]">Email:</label>
+                        <input
+                            type="text"
+                            name="email"
+                            id="email"
+                            placeholder="Input Email"
+                            className="border border-gray-300 rounded p-1"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)} // Update email state
+                        />
+                    </div>
+                    <div className="text-black mr-10">
+                        <label htmlFor="pass" className="email">Password:</label>
+                        <input
+                            type="password"
+                            name="pass"
+                            id="pass"
+                            placeholder="Input Password"
+                            className="border border-gray-300 rounded p-1"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)} // Update password state
+                        />
+                    </div>
+                    <button onClick={SignInClick} type="button" className="bg-blue-500 text-white rounded p-2 mt-4 mr-2">Sign in</button>
+                    <button onClick={SignUpClick} type="button" className="bg-green-500 text-white rounded p-2 mt-4">Sign up</button>
+
+                    {/* Display TRUE if signed in */}
+                    {isSignedIn && (
+                        <div className="success">TRUE</div>
+                    )}
+                </form>
+            </div>
         </>
-    )
+    );
 }
+
 export default Signin;

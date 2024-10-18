@@ -9,6 +9,11 @@ body{
     text-align: center;
 }
 
+.success{
+    color : green ;
+    margin-top: 10;
+}
+
 h4{
     font-family: 'Segoe UI', bold;
     font-size: 35px;

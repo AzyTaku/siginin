@@ -88,10 +88,22 @@ async function deleteUser(userId) {
   }
 }
 
+//Get all Users
+async function getAllUsers() {
+  try {
+    const users = await User.find(); // This retrieves all users from the User collection
+    return users; // Return the list of users
+  } catch (error) {
+    console.error("Error retrieving users:", error);
+    throw error; // Propagate the error to be handled by the caller
+  }
+}
+
 module.exports = {
   authenticateUser,
   createUser,
   getUserById,
   updateUser,
   deleteUser,
+  getAllUsers,
 };

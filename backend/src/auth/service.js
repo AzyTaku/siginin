@@ -7,6 +7,7 @@ const {
   getUserById,
   updateUser,
   deleteUser,
+  getAllUsers,
 } = require("./dal");
 
 router.post(`/login`, async (req, res) => {
@@ -64,6 +65,15 @@ router.delete("/:userId/delete", async (req, res) => {
     res
       .status(500)
       .send({ error: "An error occurred while deleting the user." });
+  }
+});
+
+router.get("/users", async (req, res) => {
+  try {
+    const users = await getAllUsers();
+    res.status(200).send(users); // Send the list of users in the response
+  } catch (error) {
+    res.status(500).send({ error: "Failed to retrieve users." });
   }
 });
 

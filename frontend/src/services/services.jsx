@@ -15,7 +15,7 @@ export class Services {
         // })
         //     .then(res => res.json());
         console.log("signin : ", email, password)
-        return false;
+        return true;
     }
     async Signup(email, password) {
         // let info = JSON.stringify({ email: email, password: password })
@@ -28,7 +28,7 @@ export class Services {
         // })
         //     .then(res => res.json());
         console.log("signup : ", email, password)
-        return false;
+        return true;
     }
 }
 export const services = new Services();

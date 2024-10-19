@@ -12,5 +12,6 @@ const User = connection.model("user", userSchema);
 const Item = mongoose.model("Item", ItemSchema);
 module.exports = {
   User,
+  Item,
   secret_key,
 };

@@ -5,4 +5,4 @@ const ItemSchema = new mongoose.Schema({
   description: { type: String, unique: true, required: true },
 });
 
-module.exports = Item;
+module.exports = ItemSchema;

@@ -1,21 +1,23 @@
-import SignIn from "./pages/SignIn.jsx";
-import Notes from "./pages/Notes.jsx";
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { HashRouter, Routes, Route } from 'react-router-dom';
+import Signin from './pages/SignIn';
+import Notes from './pages/Notes';
 
 
-const App = () => (
-  <Router>
-    <div className="bg-secondary w-full overflow-hidden">
-      <Routes>
-        <Route path="/" element={
-          <>
-            <SignIn />
-          </>
-        } />
-        <Route path="/Notes" element={<Notes />} />
-      </Routes>
-    </div>
-  </Router>
-);
+const queryClient = new QueryClient();
+
+
+function App() {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <HashRouter>
+        <Routes>
+          <Route path="/" element={<Signin />} />
+          <Route path="/Notes" element={<Notes />} />
+        </Routes>
+      </HashRouter>
+    </QueryClientProvider>
+  )
+}
 
 export default App

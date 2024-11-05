@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom"
 import '../assets/login.css';
 import { services } from "../services/services.jsx";
 
@@ -8,6 +9,7 @@ export function Signin() {
     const [isSignedIn, setIsSignedIn] = useState(false);
     const [isSignedUp, setIsSignedUp] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
+    const navigate = useNavigate()
 
     const SignInClick = (e) => {
         e.preventDefault(); // Prevent form submission
@@ -24,6 +26,7 @@ export function Signin() {
             if (response === true) {
                 console.log("Sign in True : ", response, " For : ", email, password);
                 setIsSignedIn(true)
+                navigate('/Notes')
             } else {
                 console.error("Sign in False :", response, " For : ", email, password);
                 setIsSignedIn(false)

@@ -10,12 +10,21 @@ const Notes = () => {
     }
 
     return (
-        <div className='text-white krona'>
-            Notes Will be Displayed here!
-            <div>
-                <button onClick={logout} className="btn bg-blue-500 text-white rounded p-2 mt-4 mr-2">Logout</button>
+        <>
+            <div className='text-white'>
+                <h1>Notes Will be Displayed here!</h1>
+                <div>
+                    <button onClick={logout} className="btn bg-blue-500 text-white rounded p-2 mt-4 mr-2">Logout</button>
+                </div>
             </div>
-        </div>
+            <div>
+                <section className="p-5">
+                    <div className="text-white mt-10">
+                        One thing
+                    </div>
+                </section>
+            </div>
+        </>
     )
 }
 

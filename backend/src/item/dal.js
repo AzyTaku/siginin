@@ -1,19 +1,39 @@
-const Item = require("../index.js");
+const { Item } = require("../index.js");
 
-async function createItem() {
+async function createItem(name, description) {
   //code to Create Item
+  try {
+    const createNote = await Item.create({ name, description });
+    return createNote;
+  } catch (error) {
+    throw error;
+  }
 }
 async function readItems() {
   //code to Read Items
 }
 async function getItemById() {
   //code to get Item by id
+  try {
+    const getItem = await Item.find({ user_id: userId, direction: "income" });
+    return getItem;
+  } catch (error) {
+    throw error;
+  }
 }
 async function updateItem() {
   //code to update Item
 }
-async function deleteItem() {
+async function deleteItem(name) {
   //code to delete Item
+  try {
+    const result = await Item.findOneAndDelete({
+      name: name,
+    });
+    return result !== null; // Returns true if an Item was deleted, false otherwise
+  } catch (error) {
+    throw error;
+  }
 }
 
 module.exports = {

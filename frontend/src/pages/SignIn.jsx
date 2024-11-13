@@ -23,14 +23,9 @@ export function Signin() {
         }
 
         services.Signin(email, password).then(function (response) {
-            if (response === true) {
-                console.log("Sign in True : ", response, " For : ", email, password);
-                setIsSignedIn(true)
-                navigate('/Notes')
-            } else {
-                console.error("Sign in False :", response, " For : ", email, password);
-                setIsSignedIn(false)
-            }
+            console.log("Sign in True : ", response, " For : ", email, password);
+            setIsSignedIn(true)
+            // navigate('/Notes')
         });
     };
 
@@ -46,13 +41,8 @@ export function Signin() {
         }
 
         services.Signup(email, password).then(function (response) {
-            if (response === true) {
-                console.log("Signup is True : ", response, " For :", email, password);
-                setIsSignedUp(true);
-            } else {
-                console.error("Signup is False : ", response, " For :", email, password);
-                setIsSignedUp(false);
-            }
+            console.log("Signup is True : ", response, " For :", email, password);
+            setIsSignedUp(true);
         });
     };
 

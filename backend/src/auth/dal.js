@@ -2,8 +2,8 @@ const { User, secret_key } = require("../index.js");
 const jwt = require("jsonwebtoken");
 const { generateRandomString } = require("../utils/util.js");
 
-async function authenticateUser(email) {
-  const user = User.findOne({ email });
+async function authenticateUser(email, password) {
+  const user = await User.findOne({ email });
 
   if (!user) {
     console.log("User with Email : ", email, " not Found");

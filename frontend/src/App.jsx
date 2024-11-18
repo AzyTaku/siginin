@@ -6,7 +6,6 @@ import Notes from './pages/Notes';
 
 const queryClient = new QueryClient();
 
-
 function App() {
   return (
     <QueryClientProvider client={queryClient}>

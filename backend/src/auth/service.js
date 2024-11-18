@@ -41,7 +41,7 @@ router.patch("/:userId/user", async (req, res) => {
     const userId = req.params.userId;
     const user = await getUserById(userId);
     if (!user) {
-      res.status(404).json({ error: "user not found" }); //error if no user Id
+      res.status(404).json({ error: "user not found" }); //error if no user id
       return;
     }
     const updatedUser = await updateUser(userId, req.body);

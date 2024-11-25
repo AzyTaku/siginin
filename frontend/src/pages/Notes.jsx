@@ -1,31 +1,51 @@
-import React from 'react'
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../assets/login.css';
+import '../index.css';
+import { services } from '../services/services';
+import NoteComponent from '../components/NoteComponent';
 
 const Notes = () => {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const [token, setToken] = useState(null);
+
+    useEffect(() => {
+        const fetchToken = async () => {
+            const tk = await services.getToken();
+            console.log("Token fetched:", tk);
+            if (!tk) {
+                navigate("/"); // Redirect if no token
+            } else {
+                setToken(tk);
+            }
+        };
+
+        fetchToken();
+    }, [navigate]);
 
     const logout = () => {
-        navigate('/')
-    }
+        services.logout();
+        navigate('/');
+    };
 
     return (
         <>
-            <div className='text-white'>
-                <h1>Notes Will be Displayed here!</h1>
-                <div>
-                    <button onClick={logout} className="btn bg-blue-500 text-white rounded p-2 mt-4 mr-2">Logout</button>
+            <div className="flex justify-center items-center w-full">
+                <div className="text-center p-6">
+                    <p className="text-lg mb-4">Notes Will be Displayed here!</p>
+                    <NoteComponent />
                 </div>
             </div>
-            <div>
-                <section className="p-5">
-                    <div className="text-white mt-10">
-                        One thing
-                    </div>
-                </section>
+
+            <div className="flex justify-center items-center mt-4">
+                <button
+                    onClick={logout}
+                    className="bg-blue-500 text-white rounded p-2"
+                >
+                    Logout
+                </button>
             </div>
         </>
-    )
-}
+    );
+};
 
-export default Notes
+export default Notes;

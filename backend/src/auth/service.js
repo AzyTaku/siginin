@@ -15,7 +15,7 @@ router.post(`/login`, async (req, res) => {
   const password = req.body.password;
   try {
     const token = await authenticateUser(email, password);
-    console.Log("Login Authentication Success for : ", email, " ", password);
+    console.log("Login Authentication Success for : ", email, " ", password);
     res.json({ token: token });
   } catch (error) {
     console.error("Login Authentication Failed : ", error.message);

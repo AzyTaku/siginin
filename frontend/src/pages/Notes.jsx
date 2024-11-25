@@ -3,10 +3,24 @@ import { useNavigate } from 'react-router-dom';
 import '../index.css';
 import { services } from '../services/services';
 import NoteComponent from '../components/NoteComponent';
+import { notesService } from '../services/notesService';
 
 const Notes = () => {
     const navigate = useNavigate();
     const [token, setToken] = useState(null);
+    const [notes, setNotes] = useState([]);
+
+    useEffect(() => {
+        const fetchNotes = async () => {
+            try {
+                const fetchedNotes = await notesService.getAllNotes();
+                setNotes(fetchedNotes);
+            } catch (error) {
+                console.error("Error fetching notes:", error);
+            }
+        };
+        fetchNotes();
+    }, []);
 
     useEffect(() => {
         const fetchToken = async () => {
@@ -27,21 +41,31 @@ const Notes = () => {
         navigate('/');
     };
 
+    const AddNote = () => {
+        navigate('/AddNote')
+    }
+
     return (
         <>
             <div className="flex justify-center items-center w-full">
                 <div className="text-center p-6">
                     <p className="text-lg mb-4">Notes Will be Displayed here!</p>
-                    <NoteComponent />
+                    <NoteComponent notes={notes} />
                 </div>
             </div>
 
-            <div className="flex justify-center items-center mt-4">
+            <div className="flex justify-center items-between space-x-3 mt-4">
                 <button
                     onClick={logout}
                     className="bg-blue-500 text-white rounded p-2"
                 >
                     Logout
+                </button>
+                <button
+                    onClick={AddNote}
+                    className="bg-blue-500 text-white rounded p-2"
+                >
+                    Add Note
                 </button>
             </div>
         </>

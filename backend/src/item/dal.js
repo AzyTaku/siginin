@@ -11,6 +11,12 @@ async function createItem(name, description) {
 }
 async function readItems() {
   //code to Read Items
+  try {
+    const getItem = await Item.find();
+    return getItem;
+  } catch (error) {
+    throw error;
+  }
 }
 async function getItemById() {
   //code to get Item by id
@@ -24,11 +30,12 @@ async function getItemById() {
 async function updateItem() {
   //code to update Item
 }
-async function deleteItem(name) {
+
+async function deleteItem(id) {
   //code to delete Item
   try {
     const result = await Item.findOneAndDelete({
-      name: name,
+      _id: id,
     });
     return result !== null; // Returns true if an Item was deleted, false otherwise
   } catch (error) {

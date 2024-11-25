@@ -12,6 +12,7 @@ const {
 router.post(`/item`, async (req, res) => {
   const name = req.body.name;
   const des = req.body.description;
+  console.log(" name : ", name, " des : ", des);
   try {
     const item = await createItem(name, des);
     res.json({ item: item });
@@ -26,6 +27,7 @@ router.post(`/item`, async (req, res) => {
 router.get(`/items`, async (req, res) => {
   try {
     const items = await readItems();
+    console.log("Items : ", items);
     res.status(200).send(items);
   } catch (error) {
     res.status(500).json({ error: "Failed to retrieve items" });
@@ -52,14 +54,16 @@ router.patch(`:itemId/item`, async (req, res) => {
 //delete Item
 router.delete(`/:itemId/delete`, async (req, res) => {
   const itemId = req.params.itemId;
+  console.log("Item Id : ", itemId);
   try {
     const dltItem = await deleteItem(itemId);
     if (dltItem) {
-      res.send({ message: "Deleted Item successfully" });
+      return res.json({ message: "Deleted Item successfully" });
+    } else {
+      return res.status(404).json({ error: "Item to delete not found" });
     }
-    res.status(404).json({ error: "Item to delete not found" });
   } catch (error) {
-    res.status(500).json({ error: "Failed to Delete Item" });
+    return res.status(500).json({ error: "Failed to Delete Item" });
   }
 });
 

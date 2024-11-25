@@ -15,6 +15,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 const authRoutes = require("./src/auth/service");
+const itemRoute = require("./src/item/service");
 
 app.use(
   "/assets",
@@ -22,6 +23,7 @@ app.use(
 );
 
 app.use("/api/auth", authRoutes);
+app.use("/api/item", itemRoute);
 
 app.get("/old/", (req, res) => {
   res.sendFile(path.join(__dirname, "../frontend/dist", "index.html"));
